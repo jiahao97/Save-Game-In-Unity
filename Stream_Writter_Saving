@@ -31,5 +31,7 @@ void LoadStreamWritter
     }
 }
 
-// The problem of this StreamWritter Saving and Loading :
-// Need to save variables in the same order as they are loaded
+// The Problem:
+// Need to save variable in the same order as they are loaded
+// Not down/updward compatible
+//(examples: when you add or remove variables from your savegame, it become corrupt)
