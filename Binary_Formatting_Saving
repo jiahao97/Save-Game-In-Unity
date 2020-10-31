@@ -7,7 +7,7 @@ void SaveGameWithBinary()
     string filePath = Application.persistentDataPath + "/savegame.sav" ;    //"savegame.sav" is just a savefile name, you can change whatever you want.
     FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);        // try to open a file if there is a file already, if not, it will create a new one
     BinaryWritter bw = new BinaryWritter(fs);                               // set the path to save
-    bw.Write(valueable);                                                    // valuable can be [hp, name, player damage, setting, else]
+    bw.Write(variable);                                                    // variable can be [hp, name, player damage, setting, else]
     
     // for examples 
     // bw.Write(PlayerName);
@@ -22,7 +22,7 @@ void LoadGameWithBinary()
     string filePath = Application.persistentDataPath + "/savegame.sav" ;    //"savegame.sav" is just a savefile name, you can change whatever you want.
     FileStream fs = new FileStream(filePath, FileMode.Open);                // Dont need to create but just Open
     BinaryReader br = new BinaryReader(fs);                                 // set the path to save
-    bw.Read xxx (valueable);                                               // valuable can be [hp, name, player damage, setting, else]
+    bw.Read xxx (variable);                                                 // variable can be [hp, name, player damage, setting, else]
     
     // For Example to read the save example on top                         // The Read Binary have to match with the valuable that you save
     // br.ReadString();                                                    // If you mess up the arrange in save and load, all the data will mess up, and you will get error
@@ -31,4 +31,9 @@ void LoadGameWithBinary()
     fw.Close();                                                            // ReadInt(), ReadInt32() to read the int valuable.
     bw.Close();                                                            // ReadFloat() to read the float valuable.
 }
+
+// The Problem:
+// Need to save variable in the same order as they are loaded
+// Not down/updward compatible
+//(examples: when you add or remove variables from your savegame, it become corrupt)
 
