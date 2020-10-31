@@ -1,0 +1,21 @@
+// This is a demo for the player pref for saving
+
+
+// Saving with this line
+// valuable = [int, float, string, else]
+
+// To Save the valuable with these code
+PlayerPref.SetInt("valuableName", valuable);
+PlayerPref.SetFloat("valuableName", valuable);
+PlayerPref.SetString("valuableName", valuable);
+
+//After saving remeber to use save() function ;
+PlayerPref.save();
+
+// Load the valuable from Playerpref with PlayerPref.Get:
+PlayerPref.GetInt("valuableName", valuable);
+PlayerPref.GetFloat("valuableName", valuable);
+PlayerPref.GetString("valuableName", valuable);
+
+// The problem of Player prebs is hard to save large and complex data.
+// This playerprebs is normally for mini game/ simple apps.
