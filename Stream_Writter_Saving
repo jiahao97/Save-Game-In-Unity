@@ -1,0 +1,36 @@
+// This is a example of using Stream Writter to save the game in Unity
+
+// To Write the file // Save the file
+void SaveStreamWritter
+{
+    string SaveFilePath = Application.persistenDataPath + "/savegame.sav";    // "savegame.sav" just a save file name, you can change to any name you want.
+    StreamWritter sw = new StreamWritter(SaveFilePath);                       // Select the file to save
+    sw.WriteLine("hp");                                                       // Valueable = hp
+    
+    // If finished Saving then use this code
+    sw.Close();
+}
+
+// To Read the file // Load the file
+void LoadStreamWritter
+{
+    string SaveFilePath = Application.persistenDataPath + "/savegame.sav";    // "savegame.sav" just a save file name, you can change to any name you want.
+    
+    // Check if file exist
+    if(File.Exists(SaveFilePath))
+    {
+        StreamReader sr = new StreamReader(SaveFilePath);                        // Select the file to Load
+        hp = sr.ReadLine();
+        
+        // If finished Loading then use this code
+        sr.Close();
+    }
+    else
+    {
+        // If no Save file, then do something
+    }
+}
+
+// The problem of this StreamWritter Saving and Loading is that
+// You have to save everything 1 by 1 and read them all 1 by 1.
+// if the arrangement for saving or loading is mess up, you mess up.
