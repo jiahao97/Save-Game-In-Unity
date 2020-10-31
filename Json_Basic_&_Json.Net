@@ -1,1 +1,32 @@
+// Json stand for Java Script Object Notation
 
+// "[...] file format that uses human-readable text
+// to transmit data objects consisting of 
+// attribute-value pairs and array data type [...]"
+
+// Json is used to transmit or save structured data.
+// We can use it as a file format when serializing our data.
+
+// Website to test json
+// https://codebeautify.org/jsonviewer
+
+// Json - General
+public class Character
+{
+    public string name = "Gunther";
+    public string type = "Penguin";
+    public string alignment = "chaotic - evil";
+    public int age = 5;
+    public Character friend =  new Character("IceKing", "King", "Chaotic - neutral");
+    public string[] enemyList = new string[] {"Finn", "jake", Glassboom"};
+}
+
+public Character(string name, string type, string alignment, int age)
+{
+    this.name = name;
+    this.type = type;
+    this.alignment = alignment;
+    this.age = age;
+}
+
+// use Json Manually with Json.Net
