@@ -31,6 +31,5 @@ void LoadStreamWritter
     }
 }
 
-// The problem of this StreamWritter Saving and Loading is that
-// You have to save everything 1 by 1 and read them all 1 by 1.
-// if the arrangement for saving or loading is mess up, you mess up.
+// The problem of this StreamWritter Saving and Loading :
+// Need to save variables in the same order as they are loaded
