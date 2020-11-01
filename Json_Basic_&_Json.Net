@@ -40,16 +40,13 @@ public string[] _friends;
 // Save Game
 public void saveGameJsonNet()
 {
-    string filePath = Application.persistentDataPath + "/Savegame.sav";
-    print("saving to" + filePath);              // to check the file path
-    
     // the first object
     JObject jObject = new JObject();
     jObject.Add("componentName", Getype().ToString());      //Automatically get the type of theobject and set the name
     
     // the second object save all the data
     JObject jDataObject = new JObject();
-    jObject.Add("data",jDataObject);
+    jObject.Add("data",jDataObject);        from line 49 - 61, every jDataObject is refer to this. (save in 1 data base)
     
     // Here to list down everything that want to save || store in the data.
     jDataObject.Add("_name", _playerName );
@@ -59,7 +56,14 @@ public void saveGameJsonNet()
     JArray jFriendsArray = JArray.fromObject(_friends);
     jDataObject.Add("_friends", jFriendsArray);         // save the array data.
     
+    // To save the player transform data, we need to use Jarray as well;
+    JArray jPosArray = new JArray(transform.position.x, transform.position.y, transform.position.z);
+    jDataObject.Add("pos", jPosArray);
+    
     // After all, remember to callout the StreamWritter to really save the file.
+    string filePath = Application.persistentDataPath + "/Savegame.sav";
+    print("saving to" + filePath + "\n" + jObject.ToString());              // to check the file path and print the save obj data to check
+    
     StreamWritter sw = new StreamWritter(filePath);     //Determine where to save the file.
     sw.WriteLine(jObject.ToString());                   // save the Jobject with jason type
     sw.Close();                                         // Never forget to close the save.
@@ -84,6 +88,13 @@ public void LoadGameJsonNet()
     _playerName = jObj["data"]["_name"].Value<String>();          // the <String>() is depend on the variable you save.
     _curHp = jObj["data"]["_curHp"].Value<Int>();                 // if you want to load int value, the use Value<Int>();
     _friends = jObj["data"]["_friends"].ToObject<String[]>();     // use ToObject to convert the file from Jarray to string array.
+    
+    // To load the player transform is abit special
+    Vector3 loadedPos = new Vector3(
+        jObject["pos"][0].Value<float>(),
+        jObject["pos"][1].Value<float>()
+        jObject["pos"][2].Value<float>()
+        );
     
     // this is how we can load data 
     // 
