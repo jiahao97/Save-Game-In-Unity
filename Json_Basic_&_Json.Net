@@ -10,7 +10,7 @@
 // Website to test json
 // https://codebeautify.org/jsonviewer
 
-// Json - General
+/// Json - General
 public class Character
 {
     public string name = "Gunther";
@@ -29,4 +29,63 @@ public Character(string name, string type, string alignment, int age)
     this.age = age;
 }
 
-// use Json Manually with Json.Net
+/// use Json Manually with Json.Net
+//Example of variables to be save
+private string componentName;
+string _playerName;
+int _curHp;
+public string[] _friends;
+
+
+// Save Game
+public void saveGameJsonNet()
+{
+    string filePath = Application.persistentDataPath + "/Savegame.sav";
+    print("saving to" + filePath);              // to check the file path
+    
+    // the first object
+    JObject jObject = new JObject();
+    jObject.Add("componentName", Getype().ToString());      //Automatically get the type of theobject and set the name
+    
+    // the second object save all the data
+    JObject jDataObject = new JObject();
+    jObject.Add("data",jDataObject);
+    
+    // Here to list down everything that want to save || store in the data.
+    jDataObject.Add("_name", _playerName );
+    jDataObject.Add("_curHp", _curHp );
+    
+    // To save a array type data, we need to use JArray.
+    JArray jFriendsArray = JArray.fromObject(_friends);
+    jDataObject.Add("_friends", jFriendsArray);         // save the array data.
+    
+    // After all, remember to callout the StreamWritter to really save the file.
+    StreamWritter sw = new StreamWritter(filePath);     //Determine where to save the file.
+    sw.WriteLine(jObject.ToString());                   // save the Jobject with jason type
+    sw.Close();                                         // Never forget to close the save.
+}
+
+//Load Game 
+public void LoadGameJsonNet()
+{
+    string filePath = Application.persistentDataPath + "/Savegame.sav";
+    print("loading to" + filePath);                     // to check the file path
+    
+    // First to call out the Stream Reader to read the save file.
+    StreamReader sr = new StreamReader(filePath)                  // telling the stream reader to get the file path
+    string jsonString = sr.ReadToEnd();                           // to load the file.
+    sr.Close();                                                   // close the load file.
+    
+    // After loading, we need to tell the computer the read file is belongs to what variable;
+    // So we gonna use Jobject.Parse to do this
+    JObject jObj = JObject.Parse(jsonString);                     // Read the file that created from line 76;
+    
+    // give the variable the data from load;
+    _playerName = jObj["data"]["_name"].Value<String>();          // the <String>() is depend on the variable you save.
+    _curHp = jObj["data"]["_curHp"].Value<Int>();                 // if you want to load int value, the use Value<Int>();
+    _friends = jObj["data"]["_friends"].ToObject<String[]>();     // use ToObject to convert the file from Jarray to string array.
+    
+    // this is how we can load data 
+    // 
+
+}
